@@ -8,8 +8,25 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-const allowedOrigin = process.env.CORS_ORIGIN || '*';
-app.use(cors({ origin: allowedOrigin }));
+// Allow multiple origins via comma-separated CORS_ORIGIN, or "*" for all
+const corsOriginEnv = process.env.CORS_ORIGIN || '*';
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow non-browser requests or same-origin (no origin header)
+    if (!origin || corsOriginEnv === '*') return callback(null, true);
+    const whitelist = corsOriginEnv
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (whitelist.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 // Routes
