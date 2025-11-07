@@ -6,7 +6,7 @@
 
 .insights-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: var(--spacing-xl);
   margin-top: var(--spacing-xl);
 }
@@ -14,10 +14,11 @@
 .insight-card {
   background: white;
   padding: var(--spacing-2xl);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-md);
   border: 1px solid var(--gray-200);
   transition: all var(--transition-base);
+  border-left: 4px solid var(--primary-500);
 }
 
 .insight-card:hover {
@@ -28,8 +29,8 @@
 
 .insight-card.overview {
   grid-column: 1 / -1;
-  background: linear-gradient(135deg, white 0%, var(--primary-50) 100%);
-  border: 1px solid var(--primary-200);
+  background: white;
+  border-left: 4px solid var(--primary-500);
 }
 
 .insight-card h2 {
@@ -59,9 +60,9 @@
 .stat-item {
   text-align: center;
   padding: var(--spacing-xl);
-  background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
-  border-radius: var(--radius-lg);
-  border: 2px solid var(--primary-200);
+  background: var(--primary-50);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--primary-200);
   transition: all var(--transition-base);
 }
 
@@ -118,8 +119,8 @@
   display: flex;
   gap: var(--spacing-lg);
   padding: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
-  border-radius: var(--radius-lg);
+  background: var(--gray-50);
+  border-radius: var(--radius-xl);
   align-items: flex-start;
   border: 1px solid var(--gray-200);
   transition: all var(--transition-base);
@@ -236,8 +237,8 @@
 
 .package-item {
   padding: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--primary-50) 0%, white 100%);
-  border-radius: var(--radius-lg);
+  background: var(--primary-50);
+  border-radius: var(--radius-xl);
   border-left: 4px solid var(--primary-500);
   transition: all var(--transition-base);
 }
@@ -268,6 +269,12 @@
   padding: var(--spacing-3xl);
   font-style: italic;
   font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .insights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {

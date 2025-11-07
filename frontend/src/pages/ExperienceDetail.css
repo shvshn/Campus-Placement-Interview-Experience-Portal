@@ -35,36 +35,20 @@
 }
 
 .detail-header {
-  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
-  color: white;
+  background: white;
+  color: var(--gray-900);
   padding: var(--spacing-2xl);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
   margin-bottom: var(--spacing-xl);
-  position: relative;
-  overflow: hidden;
-}
-
-.detail-header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 100%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-}
-
-.detail-header > * {
-  position: relative;
-  z-index: 1;
+  border: 1px solid var(--gray-200);
 }
 
 .detail-title {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: var(--spacing-lg);
-  color: white;
+  color: var(--gray-900);
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
@@ -78,25 +62,25 @@
 
 .meta-badge {
   padding: var(--spacing-sm) var(--spacing-lg);
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  background-color: var(--gray-100);
   border-radius: var(--radius-full);
   font-size: 0.875rem;
-  color: white;
+  color: var(--gray-700);
   font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--gray-200);
   transition: all var(--transition-base);
 }
 
 .meta-badge:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--gray-200);
   transform: translateY(-2px);
 }
 
 .meta-badge.highlight {
-  background-color: white;
-  color: var(--primary-600);
+  background-color: var(--primary-600);
+  color: white;
   font-weight: 700;
+  border-color: var(--primary-600);
 }
 
 .offer-badge {
@@ -110,19 +94,19 @@
 }
 
 .offer-badge.selected {
-  background: linear-gradient(135deg, var(--success-light) 0%, #d1fae5 100%);
+  background: var(--success-light);
   color: var(--success-dark);
   border-color: var(--success);
 }
 
 .offer-badge.not {
-  background: linear-gradient(135deg, var(--error-light) 0%, #fee2e2 100%);
+  background: var(--error-light);
   color: var(--error-dark);
   border-color: var(--error);
 }
 
 .offer-badge.pending {
-  background: linear-gradient(135deg, var(--warning-light) 0%, #fef3c7 100%);
+  background: var(--warning-light);
   color: var(--warning-dark);
   border-color: var(--warning);
 }
@@ -136,7 +120,7 @@
 .detail-section {
   background: white;
   padding: var(--spacing-2xl);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-md);
   border: 1px solid var(--gray-200);
   transition: box-shadow var(--transition-base);
@@ -164,28 +148,18 @@
 
 .round-card {
   border: 2px solid var(--gray-200);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: var(--spacing-xl);
-  background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+  background: var(--gray-50);
   transition: all var(--transition-base);
   position: relative;
-}
-
-.round-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(180deg, var(--primary-500) 0%, var(--primary-600) 100%);
-  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  border-left: 4px solid var(--primary-500);
 }
 
 .round-card:hover {
   border-color: var(--primary-300);
   transform: translateX(4px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .round-header h3 {
@@ -246,7 +220,7 @@
   line-height: 1.9;
   font-size: 1.125rem;
   padding: var(--spacing-xl);
-  background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
+  background: var(--primary-50);
   border-left: 4px solid var(--primary-500);
   border-radius: var(--radius-md);
 }
@@ -259,7 +233,7 @@
 
 .info-item {
   padding: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+  background: var(--gray-50);
   border-radius: var(--radius-lg);
   color: var(--gray-700);
   border: 1px solid var(--gray-200);

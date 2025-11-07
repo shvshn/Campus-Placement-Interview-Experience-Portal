@@ -5,21 +5,20 @@
 }
 
 .header {
-  background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-800) 100%);
-  color: white;
+  background: white;
+  color: var(--gray-900);
   padding: var(--spacing-lg) 0;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .header .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,7 +26,7 @@
 
 .logo {
   text-decoration: none;
-  color: white;
+  color: var(--gray-900);
   transition: transform var(--transition-base);
 }
 
@@ -40,7 +39,7 @@
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: white;
+  color: var(--gray-900);
 }
 
 .nav {
@@ -50,37 +49,19 @@
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--gray-700);
   text-decoration: none;
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--radius-md);
   font-weight: 500;
   font-size: 0.95rem;
   transition: all var(--transition-base);
-  position: relative;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  width: 80%;
-  height: 2px;
-  background: white;
-  transition: transform var(--transition-base);
-  border-radius: var(--radius-full);
 }
 
 .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: white;
+  background-color: var(--gray-100);
+  color: var(--primary-600);
   transform: translateY(-1px);
-}
-
-.nav-link:hover::after {
-  transform: translateX(-50%) scaleX(1);
 }
 
 .main-content {
@@ -89,17 +70,17 @@
 }
 
 .footer {
-  background: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-900) 100%);
-  color: rgba(255, 255, 255, 0.8);
+  background: white;
+  color: var(--gray-600);
   padding: var(--spacing-xl) 0;
   margin-top: auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--gray-200);
 }
 
 .footer .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl);
   text-align: center;
 }
 
@@ -111,14 +92,14 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl);
 }
 
 @media (max-width: 768px) {
   .header .container {
     flex-direction: column;
     gap: var(--spacing-md);
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-xl);
   }
 
   .logo h1 {

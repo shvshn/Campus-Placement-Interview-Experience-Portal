@@ -7,8 +7,8 @@
 .experience-form {
   background: white;
   padding: var(--spacing-2xl);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--gray-200);
 }
 
@@ -54,7 +54,7 @@
   font-size: 0.95rem;
   font-family: inherit;
   transition: all var(--transition-base);
-  background-color: var(--gray-50);
+  background-color: white;
   color: var(--gray-900);
 }
 
@@ -63,9 +63,7 @@
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary-500);
-  background-color: white;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  transform: translateY(-1px);
 }
 
 .form-group textarea {
@@ -80,23 +78,13 @@
 
 .round-form {
   border: 2px solid var(--gray-200);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: var(--spacing-xl);
   margin-bottom: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+  background: var(--gray-50);
   transition: all var(--transition-base);
   position: relative;
-}
-
-.round-form::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(180deg, var(--primary-500) 0%, var(--primary-600) 100%);
-  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  border-left: 4px solid var(--primary-500);
 }
 
 .round-form:hover {
@@ -237,13 +225,13 @@
 }
 
 .alert-success {
-  background: linear-gradient(135deg, var(--success-light) 0%, #d1fae5 100%);
+  background: var(--success-light);
   color: var(--success-dark);
   border-color: var(--success);
 }
 
 .alert-error {
-  background: linear-gradient(135deg, var(--error-light) 0%, #fee2e2 100%);
+  background: var(--error-light);
   color: var(--error-dark);
   border-color: var(--error);
 }

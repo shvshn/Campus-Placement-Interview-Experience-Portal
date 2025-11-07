@@ -1,37 +1,22 @@
 .experience-card {
   background: white;
-  border: 1px solid var(--primary-200);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.experience-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--primary-500) 0%, var(--primary-600) 100%);
-  transform: scaleY(0);
-  transition: transform var(--transition-base);
+  min-height: 280px;
 }
 
 .experience-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
   border-color: var(--primary-300);
-}
-
-.experience-card:hover::before {
-  transform: scaleY(1);
 }
 
 .card-header {
@@ -76,19 +61,19 @@
 }
 
 .offer-badge.selected {
-  background: linear-gradient(135deg, var(--success-light) 0%, #d1fae5 100%);
+  background: var(--success-light);
   color: var(--success-dark);
   border-color: var(--success);
 }
 
 .offer-badge.not {
-  background: linear-gradient(135deg, var(--error-light) 0%, #fee2e2 100%);
+  background: var(--error-light);
   color: var(--error-dark);
   border-color: var(--error);
 }
 
 .offer-badge.pending {
-  background: linear-gradient(135deg, var(--warning-light) 0%, #fef3c7 100%);
+  background: var(--warning-light);
   color: var(--warning-dark);
   border-color: var(--warning);
 }
@@ -106,6 +91,7 @@
   margin-bottom: var(--spacing-md);
   font-size: 0.85rem;
   color: var(--gray-600);
+  justify-content: center;
 }
 
 .meta-item {
@@ -113,13 +99,13 @@
   align-items: center;
   gap: var(--spacing-xs);
   padding: var(--spacing-xs) var(--spacing-sm);
-  background-color: var(--primary-50);
+  background-color: var(--gray-100);
   border-radius: var(--radius-md);
-  border: 1px solid var(--primary-200);
+  border: 1px solid var(--gray-200);
 }
 
 .meta-item strong {
-  color: var(--primary-700);
+  color: var(--gray-900);
   font-weight: 600;
   font-size: 0.8rem;
 }
@@ -141,7 +127,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: var(--spacing-md);
-  border-top: 1px solid var(--primary-100);
+  border-top: 1px solid var(--gray-200);
   margin-top: auto;
 }
 
@@ -178,7 +164,8 @@
 
 @media (max-width: 768px) {
   .experience-card {
-    padding: var(--spacing-md);
+    padding: var(--spacing-lg);
+    min-height: 250px;
   }
 
   .card-header {
