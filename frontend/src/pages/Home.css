@@ -76,6 +76,7 @@
 
 .btn-primary:hover {
   background: var(--neutral-800);
+  color: white;
   transform: scale(1.02);
   box-shadow: var(--shadow-lg);
 }

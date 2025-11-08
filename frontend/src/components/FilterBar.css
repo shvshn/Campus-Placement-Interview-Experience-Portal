@@ -1,11 +1,11 @@
 .filter-bar {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(22px) saturate(120%);
   padding: var(--spacing-lg);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-md);
   margin-bottom: var(--spacing-xl);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   display: flex;
   flex-wrap: nowrap;
   gap: var(--spacing-md);
