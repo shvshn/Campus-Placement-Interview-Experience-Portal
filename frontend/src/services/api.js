@@ -57,10 +57,10 @@ const fetchAPI = async (endpoint, options = {}) => {
 
 // Auth API
 export const authAPI = {
-  login: (email, password) =>
+  login: (identifier, password) =>
     fetchAPI('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ identifier, password }),
     }),
 
   register: (payload) =>
@@ -90,6 +90,11 @@ export const experiencesAPI = {
   },
 
   getById: (id) => fetchAPI(`/experiences/${id}`),
+
+  getMyExperiences: () =>
+    fetchAPI('/experiences/my', {
+      withAuth: true,
+    }),
 
   create: (experienceData) =>
     fetchAPI('/experiences', {
@@ -122,3 +127,32 @@ export const insightsAPI = {
   getAll: () => fetchAPI('/insights'),
 };
 
+// User API
+export const userAPI = {
+  getProfile: () => fetchAPI('/users/profile', { withAuth: true }),
+  updateProfile: (data) =>
+    fetchAPI('/users/profile', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      withAuth: true,
+    }),
+  getPublicProfile: (username) => fetchAPI(`/users/${username}`),
+};
+
+// Comments API
+export const commentsAPI = {
+  getByExperience: (experienceId) => fetchAPI(`/experiences/${experienceId}/comments`),
+
+  create: (experienceId, content) =>
+    fetchAPI(`/experiences/${experienceId}/comments`, {
+      method: 'POST',
+      body: JSON.stringify({ content }),
+      withAuth: true,
+    }),
+
+  delete: (commentId) =>
+    fetchAPI(`/comments/${commentId}`, {
+      method: 'DELETE',
+      withAuth: true,
+    }),
+};

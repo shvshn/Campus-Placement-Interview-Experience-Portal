@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Layout.css';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useAuthModals } from '../context/AuthModalContext.jsx';
+import UserMenu from './UserMenu.jsx';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -51,18 +52,7 @@ function Layout({ children }) {
                   <Link to="/insights" className="nav-link">Insights</Link>
                   <div className="nav-auth">
                     {isAuthenticated ? (
-                      <>
-                        <span className="nav-user">
-                          {user?.name ? `Hi, ${user.name}` : user?.email}
-                        </span>
-                        <button
-                          type="button"
-                          className="nav-link nav-button"
-                          onClick={handleLogout}
-                        >
-                          Logout
-                        </button>
-                      </>
+                      <UserMenu user={user} onLogout={handleLogout} />
                     ) : (
                       <>
                         <button
@@ -88,11 +78,11 @@ function Layout({ children }) {
           </div>
         </div>
       </header>
-      
+
       <main className={`main-content ${isHome ? 'with-fixed-header' : ''}`}>
         {children}
       </main>
-      
+
       <footer className="footer">
         <div className="container">
           <p>&copy; 2025 Placement Portal. Helping students prepare for campus placements.</p>

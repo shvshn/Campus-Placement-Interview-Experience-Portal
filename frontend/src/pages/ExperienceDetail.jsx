@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { experiencesAPI } from '../services/api';
+import CommentSection from '../components/CommentSection.jsx';
 import './ExperienceDetail.css';
 
 function ExperienceDetail() {
@@ -58,6 +59,17 @@ function ExperienceDetail() {
             <h1 className="detail-title">
               {experience.company} - {experience.role}
             </h1>
+            {/* Author with clickable @username */}
+            <div className="detail-author">
+              {experience.author?.username ? (
+                <Link to={`/user/${experience.author.username}`} className="author-link">
+                  <span className="author-name">{experience.author?.name || 'Anonymous'}</span>
+                  <span className="author-username">@{experience.author.username}</span>
+                </Link>
+              ) : (
+                <span className="author-name">{experience.author?.name || experience.authorName || 'Anonymous'}</span>
+              )}
+            </div>
             <div className="detail-meta">
               <span className="meta-badge">{experience.branch}</span>
               <span className="meta-badge">Year {experience.year}</span>
@@ -80,7 +92,7 @@ function ExperienceDetail() {
                   <div className="round-header">
                     <h3>Round {round.roundNumber}: {round.roundName}</h3>
                   </div>
-                  
+
                   {round.questions && round.questions.length > 0 && (
                     <div className="round-questions">
                       <h4>Questions Asked:</h4>
@@ -115,10 +127,10 @@ function ExperienceDetail() {
             <div className="info-grid">
               <div className="info-item">
                 <strong>Interview Date:</strong> {
-                  experience.interviewDate 
-                    ? (typeof experience.interviewDate === 'string' 
-                        ? experience.interviewDate.split('T')[0] 
-                        : new Date(experience.interviewDate).toLocaleDateString())
+                  experience.interviewDate
+                    ? (typeof experience.interviewDate === 'string'
+                      ? experience.interviewDate.split('T')[0]
+                      : new Date(experience.interviewDate).toLocaleDateString())
                     : 'Not specified'
                 }
               </div>
@@ -132,6 +144,11 @@ function ExperienceDetail() {
                 </div>
               )}
             </div>
+          </section>
+
+          {/* Comment Section */}
+          <section className="detail-section">
+            <CommentSection experienceId={experience._id} />
           </section>
         </div>
       </div>

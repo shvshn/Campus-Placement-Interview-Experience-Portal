@@ -5,6 +5,9 @@ import ExperienceList from './pages/ExperienceList';
 import ExperienceDetail from './pages/ExperienceDetail';
 import CreateExperience from './pages/CreateExperience';
 import Insights from './pages/Insights';
+import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import PublicProfile from './pages/PublicProfile';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { AuthModalProvider } from './context/AuthModalContext.jsx';
 import './App.css';
@@ -40,6 +43,23 @@ function App() {
                                 </ProtectedRoute>
                             }
                         />
+                        <Route
+                            path="/dashboard"
+                            element={
+                                <ProtectedRoute>
+                                    <Dashboard />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/profile"
+                            element={
+                                <ProtectedRoute>
+                                    <Profile />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route path="/user/:username" element={<PublicProfile />} />
                         <Route path="/insights" element={<Insights />} />
                     </Routes>
                 </Layout>

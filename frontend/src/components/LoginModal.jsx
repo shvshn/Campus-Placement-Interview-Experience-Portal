@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 
 function LoginModal({ onClose, initialEmail = '' }) {
   const { login } = useAuth();
-  const [email, setEmail] = useState(initialEmail);
+  const [identifier, setIdentifier] = useState(initialEmail);
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -16,7 +16,7 @@ function LoginModal({ onClose, initialEmail = '' }) {
     setError('');
 
     try {
-      await login(email, password);
+      await login(identifier, password);
       onClose?.();
     } catch (err) {
       setError(err.message || 'Login failed. Please check your credentials.');
@@ -43,13 +43,13 @@ function LoginModal({ onClose, initialEmail = '' }) {
 
           <form onSubmit={handleSubmit} className="login-modal-form">
             <label className="login-modal-label">
-              Email
+              Email or Username
               <input
-                type="email"
+                type="text"
                 className="login-modal-input"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email or username"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
                 required
               />
             </label>

@@ -5,21 +5,38 @@ import { useAuth } from '../context/AuthContext.jsx';
 function RegisterModal({ onClose }) {
   const { register } = useAuth();
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [accountType, setAccountType] = useState('student'); // 'student' | 'alumni'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const validateUsername = (value) => {
+    if (value.length < 3) return 'Username must be at least 3 characters';
+    if (value.length > 20) return 'Username cannot exceed 20 characters';
+    if (!/^[a-z0-9_]+$/.test(value)) return 'Only lowercase letters, numbers, and underscores allowed';
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
+
+    // Validate username
+    const usernameError = validateUsername(username.toLowerCase());
+    if (usernameError) {
+      setError(usernameError);
+      return;
+    }
+
     setLoading(true);
     setError('');
 
     try {
       await register({
         name,
+        username: username.toLowerCase(),
         email,
         password,
         // backend derives role from isAlumni when role not provided
@@ -60,6 +77,21 @@ function RegisterModal({ onClose }) {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
+            </label>
+
+            <label className="login-modal-label">
+              Username
+              <input
+                type="text"
+                className="login-modal-input"
+                placeholder="Choose a username (e.g., john_doe)"
+                value={username}
+                onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ''))}
+                required
+                minLength={3}
+                maxLength={20}
+              />
+              <span className="login-modal-hint">3-20 characters, lowercase letters, numbers, and underscores only</span>
             </label>
 
             <div className="login-modal-label">

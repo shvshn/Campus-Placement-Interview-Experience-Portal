@@ -14,7 +14,6 @@ function CreateExperience() {
     tips: '',
     interviewDate: '',
     offerStatus: 'Selected',
-    author: '',
     rounds: [{ roundNumber: 1, roundName: '', questions: [''], feedback: '' }],
   });
   const [loading, setLoading] = useState(false);
@@ -243,19 +242,6 @@ function CreateExperience() {
                   <option value="Not Selected">Not Selected</option>
                   <option value="Pending">Pending</option>
                 </select>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="author">Your Name *</label>
-                <input
-                  type="text"
-                  id="author"
-                  name="author"
-                  value={formData.author}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="e.g., John Doe"
-                />
               </div>
             </div>
           </div>

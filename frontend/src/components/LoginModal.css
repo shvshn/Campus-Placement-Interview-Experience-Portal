@@ -112,6 +112,12 @@
   padding: 0.5rem 0.9rem;
 }
 
+.login-modal-hint {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
 .login-modal-button {
   margin-top: 0.5rem;
   width: 100%;
@@ -208,5 +214,3 @@
     display: none;
   }
 }
-
-

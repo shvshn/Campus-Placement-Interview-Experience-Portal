@@ -1,0 +1,310 @@
+.comment-section {
+    margin-top: var(--spacing-2xl);
+}
+
+.comment-section-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.comment-section-header h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.comment-section-header svg {
+    width: 24px;
+    height: 24px;
+    color: var(--neutral-700);
+}
+
+.comment-count {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Comment Form */
+.comment-form {
+    background: white;
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.comment-textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color var(--transition-base);
+}
+
+.comment-textarea:focus {
+    outline: none;
+    border-color: var(--neutral-700);
+}
+
+.comment-textarea:disabled {
+    background: var(--neutral-100);
+    cursor: not-allowed;
+}
+
+.comment-form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--spacing-sm);
+}
+
+.character-count {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.comment-submit-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 0.5rem 1.25rem;
+    background: linear-gradient(135deg, var(--neutral-700), var(--neutral-800));
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.comment-submit-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.comment-submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.comment-submit-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Login Prompt */
+.comment-login-prompt {
+    background: var(--neutral-100);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.comment-login-prompt p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Loading/Error/Empty States */
+.comments-loading,
+.comments-error,
+.comments-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2xl);
+    text-align: center;
+}
+
+.comments-loading .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--neutral-200);
+    border-top-color: var(--neutral-700);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: var(--spacing-md);
+}
+
+.comments-error p {
+    color: var(--error);
+}
+
+.comments-empty svg {
+    width: 48px;
+    height: 48px;
+    color: var(--neutral-400);
+    margin-bottom: var(--spacing-md);
+}
+
+.comments-empty p {
+    color: var(--text-secondary);
+    max-width: 400px;
+}
+
+/* Comments List */
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.comment-card {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+}
+
+.comment-card:hover {
+    border-color: var(--neutral-300);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Comment Avatar */
+.comment-avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neutral-600), var(--neutral-700));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* Comment Content */
+.comment-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+}
+
+.comment-author-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.comment-author-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+}
+
+.comment-author-link:hover {
+    opacity: 0.8;
+}
+
+.comment-author-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.comment-username {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.comment-username::before {
+    content: '·';
+    margin-right: var(--spacing-xs);
+}
+
+.comment-timestamp {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.comment-timestamp::before {
+    content: '·';
+    margin: 0 var(--spacing-xs);
+}
+
+.comment-text {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Delete Button */
+.comment-delete-btn {
+    padding: 0.375rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.comment-delete-btn:hover {
+    background: var(--error-light);
+    color: var(--error);
+}
+
+.comment-delete-btn svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .comment-card {
+        padding: var(--spacing-md);
+    }
+
+    .comment-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 0.8rem;
+    }
+
+    .comment-author-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .comment-form-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .comment-submit-btn {
+        align-self: flex-end;
+    }
+}
