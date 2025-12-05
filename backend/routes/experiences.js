@@ -7,30 +7,30 @@ const { protect } = require('../middleware/auth');
 router.get('/', async (req, res) => {
   try {
     const { company, role, branch, year, search } = req.query;
-    
+
     // Build query
     const query = {};
-    
+
     if (company) {
       query.company = { $regex: company, $options: 'i' };
     }
-    
+
     if (role) {
       query.role = { $regex: role, $options: 'i' };
     }
-    
+
     if (branch) {
       query.branch = { $regex: branch, $options: 'i' };
     }
-    
+
     if (year) {
       query.year = parseInt(year);
     }
-    
+
     let experiences = await Experience.find(query)
       .populate('author', 'name email role branch')
       .sort({ createdAt: -1 });
-    
+
     // Search across multiple fields (client-side for now, can be optimized with MongoDB text search)
     if (search) {
       const searchLower = search.toLowerCase();
@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
         exp.role.toLowerCase().includes(searchLower) ||
         exp.branch.toLowerCase().includes(searchLower) ||
         (exp.tips && exp.tips.toLowerCase().includes(searchLower)) ||
-        exp.rounds.some(round => 
+        exp.rounds.some(round =>
           round.questions.some(q => q.toLowerCase().includes(searchLower)) ||
           (round.feedback && round.feedback.toLowerCase().includes(searchLower))
         )
@@ -53,27 +53,41 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /api/experiences/my - Get experiences by current user (Protected)
+router.get('/my', protect, async (req, res) => {
+  try {
+    const experiences = await Experience.find({ author: req.user._id })
+      .populate('author', 'name email role branch')
+      .sort({ createdAt: -1 });
+
+    res.json(experiences);
+  } catch (error) {
+    console.error('Error fetching user experiences:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // GET /api/experiences/:id - Get single experience
 router.get('/:id', async (req, res) => {
   try {
     const mongoose = require('mongoose');
-    
+
     // Validate MongoDB ObjectId format
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ error: 'Invalid experience ID format' });
     }
-    
+
     const experience = await Experience.findById(req.params.id)
       .populate('author', 'name email role branch graduationYear currentCompany');
-    
+
     if (!experience) {
       return res.status(404).json({ error: 'Experience not found' });
     }
-    
+
     // Increment views
     experience.views += 1;
     await experience.save();
-    
+
     res.json(experience);
   } catch (error) {
     console.error('Error fetching experience:', error);
@@ -99,8 +113,8 @@ router.post('/', async (req, res) => {
 
     // Basic validation
     if (!company || !role || !branch || !year || !rounds) {
-      return res.status(400).json({ 
-        error: 'Missing required fields: company, role, branch, year, rounds' 
+      return res.status(400).json({
+        error: 'Missing required fields: company, role, branch, year, rounds'
       });
     }
 
@@ -128,8 +142,8 @@ router.post('/', async (req, res) => {
 
     // Validate author name is provided if not authenticated
     if (!authorId && !author) {
-      return res.status(400).json({ 
-        error: 'Author name is required for anonymous submissions' 
+      return res.status(400).json({
+        error: 'Author name is required for anonymous submissions'
       });
     }
 
