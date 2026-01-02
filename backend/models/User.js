@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Username is required'],
     unique: true,
+    sparse: true, // Allow multiple null values, but enforce uniqueness for non-null values
     lowercase: true,
     trim: true,
     minlength: [3, 'Username must be at least 3 characters'],

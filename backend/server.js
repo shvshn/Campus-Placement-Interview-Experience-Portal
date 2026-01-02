@@ -36,7 +36,20 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
-app.use(express.json());
+
+// JSON body parser with explicit limits for production
+app.use(express.json({ 
+  limit: '10mb',
+  strict: true 
+}));
+
+// Log all incoming requests for debugging (can be removed in production if needed)
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api/auth')) {
+    console.log(`${req.method} ${req.path} - Content-Type: ${req.headers['content-type']}`);
+  }
+  next();
+});
 
 // Routes
 app.use('/api/auth', authRoutes);

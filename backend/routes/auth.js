@@ -10,25 +10,48 @@ const router = express.Router();
 // @access  Public
 router.post('/register', async (req, res) => {
   try {
+    // Debug: Log the request body
+    console.log('Register request body:', { ...req.body, password: req.body.password ? '***' : 'missing' });
+    console.log('Request headers:', req.headers);
+    console.log('Content-Type:', req.headers['content-type']);
+    
     const { name, username, email, password, role, branch, graduationYear, isAlumni } = req.body;
 
-    // Validation
+    // Validation - ensure all required fields are present and not empty
     if (!name || !username || !email || !password) {
+      console.log('Validation failed - missing required fields:', { 
+        hasName: !!name, 
+        hasUsername: !!username, 
+        hasEmail: !!email, 
+        hasPassword: !!password 
+      });
       return res.status(400).json({
         success: false,
         error: 'Please provide name, username, email, and password',
       });
     }
 
+    // Ensure username is a non-empty string after trimming
+    const trimmedUsername = String(username).trim();
+    if (!trimmedUsername || trimmedUsername === '') {
+      console.log('Validation failed - username is empty after trimming');
+      return res.status(400).json({
+        success: false,
+        error: 'Username cannot be empty',
+      });
+    }
+
     // Validate username format
-    if (!/^[a-z0-9_]+$/.test(username.toLowerCase())) {
+    if (!/^[a-z0-9_]+$/.test(trimmedUsername.toLowerCase())) {
+      console.log('Validation failed - username format invalid:', trimmedUsername);
       return res.status(400).json({
         success: false,
         error: 'Username can only contain lowercase letters, numbers, and underscores',
       });
     }
 
-    if (username.length < 3 || username.length > 20) {
+    if (trimmedUsername.length < 3 || trimmedUsername.length > 20) {
+      console.log('Validation failed - username length invalid:', trimmedUsername.length);
       return res.status(400).json({
         success: false,
         error: 'Username must be between 3 and 20 characters',
@@ -54,25 +77,28 @@ router.post('/register', async (req, res) => {
     }
 
     // Check if username exists
-    const usernameExists = await User.findOne({ username: username.toLowerCase() });
+    const usernameExists = await User.findOne({ username: trimmedUsername.toLowerCase() });
     if (usernameExists) {
+      console.log('Registration failed - username already exists:', trimmedUsername);
       return res.status(400).json({
         success: false,
         error: 'This username is already taken',
       });
     }
 
-    // Create user
+    // Create user - ensure username is never null
+    console.log('Creating user with username:', trimmedUsername.toLowerCase());
     const user = await User.create({
-      name,
-      username: username.toLowerCase(),
-      email,
+      name: String(name).trim(),
+      username: trimmedUsername.toLowerCase(), // Always lowercase and trimmed, never null
+      email: String(email).trim().toLowerCase(),
       password,
       role: role || (isAlumni ? 'alumni' : 'student'),
-      branch,
+      branch: branch ? String(branch).trim() : undefined,
       graduationYear,
       isAlumni: isAlumni || false,
     });
+    console.log('User created successfully:', user._id);
 
     // Generate token
     const token = generateToken(user._id);
@@ -93,6 +119,28 @@ router.post('/register', async (req, res) => {
     });
   } catch (error) {
     console.error('Registration error:', error);
+    
+    // Handle MongoDB duplicate key errors
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyPattern || {})[0];
+      if (field === 'username') {
+        return res.status(400).json({
+          success: false,
+          error: 'This username is already taken',
+        });
+      }
+      if (field === 'email') {
+        return res.status(400).json({
+          success: false,
+          error: 'User already exists with this email',
+        });
+      }
+      return res.status(400).json({
+        success: false,
+        error: `${field} already exists`,
+      });
+    }
+    
     res.status(500).json({
       success: false,
       error: error.message || 'Server error during registration',
