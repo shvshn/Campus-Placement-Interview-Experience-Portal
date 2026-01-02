@@ -24,6 +24,12 @@ const corsOptions = {
   origin: (origin, callback) => {
     // Allow non-browser requests or same-origin (no origin header)
     if (!origin || corsOriginEnv === '*') return callback(null, true);
+    
+    // Always allow Vercel production frontend
+    if (origin === 'https://campus-experience-portal.vercel.app') {
+      return callback(null, true);
+    }
+    
     const whitelist = corsOriginEnv
       .split(',')
       .map((s) => s.trim())
