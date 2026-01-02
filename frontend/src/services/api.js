@@ -40,8 +40,9 @@ const fetchAPI = async (endpoint, options = {}) => {
       ...restOptions,
     };
 
-    // Include body for POST, PUT, PATCH, DELETE requests
-    if (body && method && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method.toUpperCase())) {
+    // Always include body for POST, PUT, PATCH, DELETE requests if body is provided
+    const httpMethod = method ? method.toUpperCase() : 'GET';
+    if (body && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(httpMethod)) {
       fetchOptions.body = body;
     }
 
@@ -70,9 +71,18 @@ export const authAPI = {
     if (!identifier || !password) {
       return Promise.reject(new Error('Please provide email/username and password'));
     }
+    
+    // Ensure identifier and password are strings and trimmed
+    const trimmedIdentifier = String(identifier).trim();
+    const trimmedPassword = String(password).trim();
+    
+    if (!trimmedIdentifier || !trimmedPassword) {
+      return Promise.reject(new Error('Please provide email/username and password'));
+    }
+    
     return fetchAPI('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ identifier, password }),
+      body: JSON.stringify({ identifier: trimmedIdentifier, password: trimmedPassword }),
     });
   },
 
