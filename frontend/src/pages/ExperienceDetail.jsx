@@ -41,7 +41,7 @@ function ExperienceDetail() {
       <div className="container">
         <div className="error">{error || 'Experience not found'}</div>
         <Link to="/experiences" className="back-link">
-          ← Back to Experiences
+          Back to Experiences
         </Link>
       </div>
     );
@@ -51,7 +51,7 @@ function ExperienceDetail() {
     <div className="experience-detail">
       <div className="container">
         <Link to="/experiences" className="back-link">
-          ← Back to Experiences
+          Back to Experiences
         </Link>
 
         <div className="detail-header">

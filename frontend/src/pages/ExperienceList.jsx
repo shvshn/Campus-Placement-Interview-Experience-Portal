@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { experiencesAPI } from '../services/api';
 import ExperienceCard from '../components/ExperienceCard';
 import FilterBar from '../components/FilterBar';
+import QuestionsModal from '../components/QuestionsModal';
 import './ExperienceList.css';
 
 function ExperienceList() {
@@ -9,6 +10,7 @@ function ExperienceList() {
   const [loading, setLoading] = useState(true);
   const [initialLoad, setInitialLoad] = useState(true);
   const [error, setError] = useState(null);
+  const [isQuestionsModalOpen, setIsQuestionsModalOpen] = useState(false);
   const [filters, setFilters] = useState({
     company: '',
     role: '',
@@ -17,6 +19,27 @@ function ExperienceList() {
   });
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  const [filterOptions, setFilterOptions] = useState({
+    companies: [],
+    roles: [],
+    branches: [],
+    years: [],
+  });
+
+  // Fetch filter options on mount
+  useEffect(() => {
+    const fetchFilterOptions = async () => {
+      try {
+        const options = await experiencesAPI.getFilterOptions();
+        console.log('Filter options received:', options);
+        setFilterOptions(options || { companies: [], roles: [], branches: [], years: [] });
+      } catch (err) {
+        console.error('Error fetching filter options:', err);
+        setFilterOptions({ companies: [], roles: [], branches: [], years: [] });
+      }
+    };
+    fetchFilterOptions();
+  }, []);
 
   // Debounce search term
   useEffect(() => {
@@ -97,6 +120,10 @@ function ExperienceList() {
     );
   }
 
+  const handleDownloadQuestions = () => {
+    setIsQuestionsModalOpen(true);
+  };
+
   return (
     <div className="experience-list">
       <div className="container">
@@ -111,6 +138,7 @@ function ExperienceList() {
           onSearchChange={handleSearchChange}
           onClearFilters={handleClearFilters}
           searchTerm={searchTerm}
+          filterOptions={filterOptions}
         />
 
         {loading && !initialLoad && (
@@ -130,6 +158,19 @@ function ExperienceList() {
           </div>
         )}
       </div>
+      
+      <button onClick={handleDownloadQuestions} className="download-questions-btn floating-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span className="btn-text">Download Interview Questions</span>
+      </button>
+
+      {isQuestionsModalOpen && (
+        <QuestionsModal onClose={() => setIsQuestionsModalOpen(false)} />
+      )}
     </div>
   );
 }

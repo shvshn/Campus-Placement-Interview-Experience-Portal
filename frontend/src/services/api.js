@@ -89,6 +89,8 @@ export const experiencesAPI = {
     return fetchAPI(`/experiences${queryString ? `?${queryString}` : ''}`);
   },
 
+  getFilterOptions: () => fetchAPI('/experiences/filters'),
+
   getById: (id) => fetchAPI(`/experiences/${id}`),
 
   getMyExperiences: () =>
@@ -115,6 +117,13 @@ export const experiencesAPI = {
       method: 'DELETE',
       withAuth: true,
     }),
+
+  report: (id, reason, description) =>
+    fetchAPI(`/experiences/${id}/report`, {
+      method: 'POST',
+      body: JSON.stringify({ reason, description }),
+      withAuth: true, // optional auth
+    }),
 };
 
 // Companies API
@@ -125,6 +134,13 @@ export const companiesAPI = {
 // Insights API
 export const insightsAPI = {
   getAll: () => fetchAPI('/insights'),
+  searchQuestions: (company, role) => {
+    const params = new URLSearchParams();
+    if (company) params.append('company', company);
+    if (role) params.append('role', role);
+    const queryString = params.toString();
+    return fetchAPI(`/insights/questions${queryString ? `?${queryString}` : ''}`);
+  },
 };
 
 // User API
@@ -155,4 +171,126 @@ export const commentsAPI = {
       method: 'DELETE',
       withAuth: true,
     }),
+};
+
+// Admin API
+export const adminAPI = {
+  // Stats
+  getStats: () => fetchAPI('/admin/stats', { withAuth: true }),
+
+  // Experiences/Moderation
+  getPendingExperiences: () => fetchAPI('/admin/experiences/pending', { withAuth: true }),
+  getAllExperiences: (status) => {
+    const params = status ? `?status=${status}` : '';
+    return fetchAPI(`/admin/experiences${params}`, { withAuth: true });
+  },
+  approveExperience: (id, notes) =>
+    fetchAPI(`/admin/experiences/${id}/approve`, {
+      method: 'PUT',
+      body: JSON.stringify({ notes }),
+      withAuth: true,
+    }),
+  rejectExperience: (id, notes) =>
+    fetchAPI(`/admin/experiences/${id}/reject`, {
+      method: 'PUT',
+      body: JSON.stringify({ notes }),
+      withAuth: true,
+    }),
+  updateExperience: (id, data) =>
+    fetchAPI(`/admin/experiences/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      withAuth: true,
+    }),
+  deleteExperience: (id) =>
+    fetchAPI(`/admin/experiences/${id}`, {
+      method: 'DELETE',
+      withAuth: true,
+    }),
+  resetModerationStatus: () =>
+    fetchAPI('/admin/experiences/reset-moderation', {
+      method: 'POST',
+      withAuth: true,
+    }),
+};
+
+// Public Announcements API
+export const announcementsAPI = {
+  getAnnouncements: () => fetchAPI('/announcements', { withAuth: false }),
+
+  // Reports
+  getReports: (status) => {
+    const params = status ? `?status=${status}` : '';
+    return fetchAPI(`/admin/reports${params}`, { withAuth: true });
+  },
+  reviewReport: (id, status, adminNotes) =>
+    fetchAPI(`/admin/reports/${id}/review`, {
+      method: 'PUT',
+      body: JSON.stringify({ status, adminNotes }),
+      withAuth: true,
+    }),
+  deleteReport: (id) =>
+    fetchAPI(`/admin/reports/${id}`, {
+      method: 'DELETE',
+      withAuth: true,
+    }),
+
+  // Announcements
+  getAnnouncements: () => fetchAPI('/admin/announcements', { withAuth: true }),
+  createAnnouncement: (data) =>
+    fetchAPI('/admin/announcements', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      withAuth: true,
+    }),
+  updateAnnouncement: (id, data) =>
+    fetchAPI(`/admin/announcements/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      withAuth: true,
+    }),
+  deleteAnnouncement: (id) =>
+    fetchAPI(`/admin/announcements/${id}`, {
+      method: 'DELETE',
+      withAuth: true,
+    }),
+
+  // Company Standardization
+  getCompanyStandardizations: () => fetchAPI('/admin/companies', { withAuth: true }),
+  getAllCompanies: () => fetchAPI('/admin/companies/all', { withAuth: true }),
+  createCompanyStandardization: (data) =>
+    fetchAPI('/admin/companies', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      withAuth: true,
+    }),
+  updateCompanyStandardization: (id, data) =>
+    fetchAPI(`/admin/companies/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      withAuth: true,
+    }),
+  standardizeCompanyName: (experienceId, standardName) =>
+    fetchAPI('/admin/companies/standardize', {
+      method: 'POST',
+      body: JSON.stringify({ experienceId, standardName }),
+      withAuth: true,
+    }),
+  deleteCompanyStandardization: (id) =>
+    fetchAPI(`/admin/companies/${id}`, {
+      method: 'DELETE',
+      withAuth: true,
+    }),
+
+  // Users
+  getUsers: (filters) => {
+    const params = new URLSearchParams();
+    if (filters?.branch) params.append('branch', filters.branch);
+    if (filters?.graduationYear) params.append('graduationYear', filters.graduationYear);
+    if (filters?.role) params.append('role', filters.role);
+    if (filters?.search) params.append('search', filters.search);
+    const queryString = params.toString();
+    return fetchAPI(`/admin/users${queryString ? `?${queryString}` : ''}`, { withAuth: true });
+  },
+  getUserFilters: () => fetchAPI('/admin/users/filters', { withAuth: true }),
 };

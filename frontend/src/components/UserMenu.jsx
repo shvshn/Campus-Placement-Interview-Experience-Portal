@@ -93,6 +93,21 @@ function UserMenu({ user, onLogout }) {
             My Profile
           </Link>
           
+          {user?.role === 'admin' && (
+            <Link
+              to="/admin"
+              className="user-menu-item"
+              onClick={() => setIsOpen(false)}
+            >
+              <svg className="user-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+              Admin Dashboard
+            </Link>
+          )}
+          
           <div className="user-menu-divider" />
           
           <button

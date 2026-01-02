@@ -9,7 +9,7 @@
   align-items: center;
   gap: var(--spacing-sm);
   color: var(--text-tertiary);
-  text-decoration: none;
+  text-decoration: none !important;
   margin-bottom: var(--spacing-xl);
   font-weight: 600;
   font-size: 1rem;
@@ -18,10 +18,14 @@
   border-radius: var(--radius-md);
 }
 
-.back-link:hover {
+.back-link:hover,
+.back-link:active,
+.back-link:visited,
+.back-link:focus {
   color: var(--neutral-800);
   background-color: var(--neutral-100);
   transform: translateX(-4px);
+  text-decoration: none !important;
 }
 
 .back-link::before {

@@ -5,10 +5,13 @@ import ExperienceList from './pages/ExperienceList';
 import ExperienceDetail from './pages/ExperienceDetail';
 import CreateExperience from './pages/CreateExperience';
 import Insights from './pages/Insights';
+import QuestionsSearch from './pages/QuestionsSearch';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import PublicProfile from './pages/PublicProfile';
+import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import AdminRoute from './components/AdminRoute.jsx';
 import { AuthModalProvider } from './context/AuthModalContext.jsx';
 import './App.css';
 
@@ -59,8 +62,17 @@ function App() {
                                 </ProtectedRoute>
                             }
                         />
+                        <Route
+                            path="/admin"
+                            element={
+                                <AdminRoute>
+                                    <AdminDashboard />
+                                </AdminRoute>
+                            }
+                        />
                         <Route path="/user/:username" element={<PublicProfile />} />
                         <Route path="/insights" element={<Insights />} />
+                        <Route path="/questions" element={<QuestionsSearch />} />
                     </Routes>
                 </Layout>
             </AuthModalProvider>

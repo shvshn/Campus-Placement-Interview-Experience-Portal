@@ -1,7 +1,37 @@
 import { memo } from 'react';
 import './FilterBar.css';
+import CustomDropdown from './CustomDropdown';
 
-const FilterBar = memo(function FilterBar({ filters, onFilterChange, onSearchChange, onClearFilters, searchTerm }) {
+const FilterBar = memo(function FilterBar({ filters, onFilterChange, onSearchChange, onClearFilters, searchTerm, filterOptions = { companies: [], roles: [], branches: [], years: [] } }) {
+  // Prepare dropdown options
+  const companyOptions = [
+    { value: '', label: 'All Companies' },
+    ...(filterOptions.companies && Array.isArray(filterOptions.companies) && filterOptions.companies.length > 0
+      ? filterOptions.companies.map((company) => ({ value: company, label: company }))
+      : [])
+  ];
+
+  const roleOptions = [
+    { value: '', label: 'All Roles' },
+    ...(filterOptions.roles && Array.isArray(filterOptions.roles) && filterOptions.roles.length > 0
+      ? filterOptions.roles.map((role) => ({ value: role, label: role }))
+      : [])
+  ];
+
+  const branchOptions = [
+    { value: '', label: 'All Branches' },
+    ...(filterOptions.branches && Array.isArray(filterOptions.branches) && filterOptions.branches.length > 0
+      ? filterOptions.branches.map((branch) => ({ value: branch, label: branch }))
+      : [])
+  ];
+
+  const yearOptions = [
+    { value: '', label: 'All Years' },
+    ...(filterOptions.years && Array.isArray(filterOptions.years) && filterOptions.years.length > 0
+      ? filterOptions.years.map((year) => ({ value: year.toString(), label: year.toString() }))
+      : [])
+  ];
+  
   return (
     <div className="filter-bar">
       <div className="filter-group search-group">
@@ -15,42 +45,38 @@ const FilterBar = memo(function FilterBar({ filters, onFilterChange, onSearchCha
       </div>
 
       <div className="filter-group">
-        <input
-          type="text"
-          placeholder="Company"
+        <CustomDropdown
           value={filters.company || ''}
-          onChange={(e) => onFilterChange('company', e.target.value)}
-          className="filter-input"
+          onChange={(value) => onFilterChange('company', value)}
+          options={companyOptions}
+          placeholder="All Companies"
         />
       </div>
 
       <div className="filter-group">
-        <input
-          type="text"
-          placeholder="Role"
+        <CustomDropdown
           value={filters.role || ''}
-          onChange={(e) => onFilterChange('role', e.target.value)}
-          className="filter-input"
+          onChange={(value) => onFilterChange('role', value)}
+          options={roleOptions}
+          placeholder="All Roles"
         />
       </div>
 
       <div className="filter-group">
-        <input
-          type="text"
-          placeholder="Branch"
+        <CustomDropdown
           value={filters.branch || ''}
-          onChange={(e) => onFilterChange('branch', e.target.value)}
-          className="filter-input"
+          onChange={(value) => onFilterChange('branch', value)}
+          options={branchOptions}
+          placeholder="All Branches"
         />
       </div>
 
       <div className="filter-group">
-        <input
-          type="number"
-          placeholder="Year"
-          value={filters.year || ''}
-          onChange={(e) => onFilterChange('year', e.target.value ? parseInt(e.target.value) : '')}
-          className="filter-input"
+        <CustomDropdown
+          value={filters.year ? filters.year.toString() : ''}
+          onChange={(value) => onFilterChange('year', value ? parseInt(value) : '')}
+          options={yearOptions}
+          placeholder="All Years"
         />
       </div>
 

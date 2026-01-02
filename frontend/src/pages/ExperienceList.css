@@ -25,6 +25,47 @@
   line-height: 1.6;
 }
 
+.download-questions-btn.floating-btn {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 1), rgba(22, 163, 74, 1));
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4);
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+.download-questions-btn.floating-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(34, 197, 94, 0.5);
+}
+
+.download-questions-btn.floating-btn:active {
+  transform: translateY(-2px) scale(1);
+}
+
+.download-questions-btn.floating-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.download-questions-btn.floating-btn .btn-text {
+  display: inline;
+}
+
 .loading,
 .loading-inline,
 .error,
@@ -104,6 +145,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-xl);
+  align-items: stretch;
 }
 
 @media (max-width: 1024px) {
@@ -129,5 +171,21 @@
   .experiences-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
+  }
+
+  .download-questions-btn.floating-btn {
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .download-questions-btn.floating-btn .btn-text {
+    display: none;
+  }
+
+  .download-questions-btn.floating-btn svg {
+    width: 24px;
+    height: 24px;
   }
 }

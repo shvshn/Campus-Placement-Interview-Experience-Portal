@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import './ExperienceCard.css';
 
 function ExperienceCard({ experience }) {
+  const experienceUrl = `/experiences/${experience._id || experience.id}`;
+  
   return (
-    <div className="experience-card">
+    <Link to={experienceUrl} className="experience-card">
       <div className="card-header">
         <h3 className="card-title">
-          <Link to={`/experiences/${experience._id || experience.id}`}>
-            {experience.company} - {experience.role}
-          </Link>
+          {experience.company} - {experience.role}
         </h3>
         <span className={`offer-badge ${experience.offerStatus.toLowerCase()}`}>
           {experience.offerStatus}
@@ -36,12 +36,12 @@ function ExperienceCard({ experience }) {
         
         <div className="card-footer">
           <span className="card-author">By {experience.authorName || (experience.author?.name) || 'Anonymous'}</span>
-          <Link to={`/experiences/${experience._id || experience.id}`} className="card-link">
+          <span className="card-link">
             Read More →
-          </Link>
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { userAPI } from '../services/api.js';
 import './PublicProfile.css';
 
 function PublicProfile() {
     const { username } = useParams();
+    const navigate = useNavigate();
     const [profile, setProfile] = useState(null);
     const [experiences, setExperiences] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -59,6 +60,9 @@ function PublicProfile() {
         return (
             <div className="public-profile">
                 <div className="container">
+                    <Link to="#" onClick={(e) => { e.preventDefault(); navigate(-1); }} className="back-link">
+                        Back
+                    </Link>
                     <div className="profile-loading">
                         <div className="loading-spinner" />
                         <p>Loading profile...</p>
@@ -72,6 +76,9 @@ function PublicProfile() {
         return (
             <div className="public-profile">
                 <div className="container">
+                    <Link to="#" onClick={(e) => { e.preventDefault(); navigate(-1); }} className="back-link">
+                        Back
+                    </Link>
                     <div className="profile-error">
                         <h2>User not found</h2>
                         <p>The user @{username} doesn't exist.</p>
@@ -85,6 +92,10 @@ function PublicProfile() {
     return (
         <div className="public-profile">
             <div className="container">
+                <Link to="#" onClick={(e) => { e.preventDefault(); navigate(-1); }} className="back-link">
+                    Back
+                </Link>
+                
                 {/* Profile Header */}
                 <div className="public-profile-card">
                     <div className="profile-avatar-section">
